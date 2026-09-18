@@ -4,8 +4,8 @@
 
 **Blocked by:** 02
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Install twice against a temp HOME leaves exactly one hook entry
-- [ ] Uninstall removes the entry and folder, leaves other settings untouched
-- [ ] Works when `settings.json` is missing or has no `hooks` key
+- [x] Install twice against a temp HOME leaves exactly one hook entry
+- [x] Uninstall removes the entry and folder, leaves other settings untouched
+- [x] Works when `settings.json` is missing or has no `hooks` key

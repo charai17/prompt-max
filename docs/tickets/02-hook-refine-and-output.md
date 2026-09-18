@@ -4,8 +4,8 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Child is invoked with the agreed flags, `PROMPT_MAX_CHILD=1`, and the recipe+payload on stdin
-- [ ] Missing tag, empty body, `PASS`, non-zero exit and timeout all yield no output and a log line
-- [ ] Successful run writes `last-rewrite.md` and the JSON with the execute-directive
+- [x] Child is invoked with the agreed flags, `PROMPT_MAX_CHILD=1`, and the recipe+payload on stdin
+- [x] Missing tag, empty body, `PASS`, non-zero exit and timeout all yield no output and a log line
+- [x] Successful run writes `last-rewrite.md` and the JSON with the execute-directive

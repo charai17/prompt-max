@@ -4,8 +4,8 @@
 
 **Blocked by:** 03, 04
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Real hook run refines a rough prompt; `last-rewrite.md` shows it; status line appears
-- [ ] Repo pushed, public, install command in README verified from a clean clone
-- [ ] `~/.claude/skills/fable` and its memory removed; new memory written
+- [x] Real hook run refines a rough prompt; `last-rewrite.md` shows it; status line appears
+- [x] Repo pushed, public, install command in README verified from a clean clone
+- [x] `~/.claude/skills/fable` and its memory removed; new memory written

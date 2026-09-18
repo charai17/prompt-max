@@ -4,7 +4,7 @@
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Recipe covers rules, output shape, PASS, and four diverse examples
-- [ ] SKILL.md description triggers only on explicit `/prompt-max`
+- [x] Recipe covers rules, output shape, PASS, and four diverse examples
+- [x] SKILL.md description triggers only on explicit `/prompt-max`
