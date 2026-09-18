@@ -1,0 +1,16 @@
+{
+  "name": "prompt-max",
+  "version": "1.0.0",
+  "description": "Prompt Max: a UserPromptSubmit hook for Claude Code that refines every rough message into the best possible prompt before Claude acts on it.",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test",
+    "install-hook": "node install.mjs",
+    "uninstall-hook": "node install.mjs --uninstall"
+  },
+  "license": "MIT"
+}

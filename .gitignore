@@ -1,0 +1,4 @@
+node_modules/
+last-rewrite.md
+config.json
+*.bak
