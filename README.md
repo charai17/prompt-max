@@ -64,7 +64,7 @@ Claude Code hooks cannot replace the message you typed, only add to it. Your raw
 
 Environment variables override the file for one session: `PROMPT_MAX_OFF=1` (disable), `PROMPT_MAX_MODEL`, `PROMPT_MAX_EFFORT`, `PROMPT_MAX_MIN_WORDS`, `PROMPT_MAX_QUIET`, `PROMPT_MAX_CLAUDE_BIN` (path to the `claude` binary if it is not on your PATH).
 
-Start a message with `!raw` to bypass the refiner for that message only.
+Start a message with `raw:` to bypass the refiner for that message only.
 
 ## The recipe
 

@@ -6,6 +6,6 @@
 
 **Status:** ready-for-agent
 
-- [ ] Slash commands, short prompts, the `!raw` prefix, `PROMPT_MAX_OFF` and `PROMPT_MAX_CHILD` all skip with a named reason
+- [ ] Slash commands, short prompts, the `raw:` prefix, `PROMPT_MAX_OFF` and `PROMPT_MAX_CHILD` all skip with a named reason
 - [ ] Transcript tail keeps only user/assistant text, newest last, truncated per turn, capped at N turns
 - [ ] Refiner input wraps instructions, conversation excerpt, cwd and raw prompt in XML tags

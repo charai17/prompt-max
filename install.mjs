@@ -4,7 +4,7 @@
 //   node install.mjs --uninstall remove the hook entry and the skill folder
 // Idempotent: run it again after `git pull` to update.
 
-import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync, copyFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync, copyFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -12,10 +12,11 @@ import { DEFAULT_CONFIG } from "./hooks/refine.mjs";
 
 const SKILL_FILES = ["SKILL.md", "prompt.md", "README.md", "LICENSE", "hooks/refine.mjs", "hooks/child-settings.json", "hooks/no-mcp.json"];
 const HOOK_MARK = "prompt-max/hooks/refine.mjs";
+// Must stay above the refiner timeout in DEFAULT_CONFIG.timeoutMs (120 s), or Claude Code kills the hook first.
 const HOOK_TIMEOUT_SECONDS = 150;
 
 export function install({ home, source, node }) {
-  const skillDir = join(home, ".claude", "skills", "prompt-max");
+  const skillDir = skillDirOf(home);
   mkdirSync(join(skillDir, "hooks"), { recursive: true });
   for (const file of SKILL_FILES) {
     const from = join(source, file);
@@ -40,8 +41,7 @@ export function install({ home, source, node }) {
 }
 
 export function uninstall({ home }) {
-  const skillDir = join(home, ".claude", "skills", "prompt-max");
-  rmSync(skillDir, { recursive: true, force: true });
+  rmSync(skillDirOf(home), { recursive: true, force: true });
   if (!existsSync(settingsPath(home))) return;
   updateSettings(home, (settings) => {
     if (!settings.hooks?.UserPromptSubmit) return;
@@ -57,6 +57,10 @@ function withoutPromptMax(groups) {
     .filter((group) => group.hooks.length > 0);
 }
 
+function skillDirOf(home) {
+  return join(home, ".claude", "skills", "prompt-max");
+}
+
 function settingsPath(home) {
   return join(home, ".claude", "settings.json");
 }
@@ -65,7 +69,8 @@ function updateSettings(home, mutate) {
   const path = settingsPath(home);
   mkdirSync(dirname(path), { recursive: true });
   const settings = existsSync(path) ? JSON.parse(readFileSync(path, "utf8")) : {};
-  if (existsSync(path)) cpSync(path, `${path}.prompt-max.bak`);
+  // The backup is the state before Prompt Max ever touched the file, so it is written once.
+  if (existsSync(path) && !existsSync(`${path}.prompt-max.bak`)) copyFileSync(path, `${path}.prompt-max.bak`);
   mutate(settings);
   writeFileSync(path, JSON.stringify(settings, null, 2) + "\n");
 }

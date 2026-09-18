@@ -87,3 +87,25 @@ test("uninstall on a machine that never installed is a no-op", () => {
   assert.doesNotThrow(() => uninstall({ home }));
   rmSync(home, { recursive: true, force: true });
 });
+
+test("settings.json without a hooks key gains one", () => {
+  const home = freshHome();
+  mkdirSync(join(home, ".claude"), { recursive: true });
+  writeFileSync(join(home, ".claude", "settings.json"), JSON.stringify({ model: "opus" }));
+  install({ home, source, node: "node" });
+  assert.equal(promptMaxHooks(settingsOf(home)).length, 1);
+  assert.equal(settingsOf(home).model, "opus");
+  rmSync(home, { recursive: true, force: true });
+});
+
+test("the backup is the pre-install settings and survives reinstall and uninstall", () => {
+  const home = freshHome();
+  mkdirSync(join(home, ".claude"), { recursive: true });
+  writeFileSync(join(home, ".claude", "settings.json"), JSON.stringify({ model: "before" }));
+  install({ home, source, node: "node" });
+  install({ home, source, node: "node" });
+  uninstall({ home });
+  const backup = JSON.parse(readFileSync(join(home, ".claude", "settings.json.prompt-max.bak"), "utf8"));
+  assert.deepEqual(backup, { model: "before" });
+  rmSync(home, { recursive: true, force: true });
+});
